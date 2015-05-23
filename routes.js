@@ -3,6 +3,7 @@ var configRoutes;
 var url = require('url');
 var twitter = require('./twitter');
 var facebook = require('./facebook');
+var ubic = require('./ubic');
 var urlInfo;
 
 configRoutes = function(app, server) {
@@ -27,6 +28,13 @@ configRoutes = function(app, server) {
     });
     app.get('/api/facebook/search', function(request, response) {
     	facebook.search(urlInfo,
+            function(result){
+                response.send(result);
+            }
+        );
+    });
+    app.get('/api/ubic/document', function(request, response) {
+        ubic.document(urlInfo,
             function(result){
                 response.send(result);
             }

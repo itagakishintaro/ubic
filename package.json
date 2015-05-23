@@ -5,6 +5,7 @@
     "dependencies":{
         "express": "*",
         "twitter": "*",
-        "facebook-node-sdk": "*"
+        "facebook-node-sdk": "*",
+        "request": "*"
     }
 }
