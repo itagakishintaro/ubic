@@ -33,8 +33,8 @@ configRoutes = function(app, server) {
             }
         );
     });
-    app.get('/api/ubic/ubic1', function(request, response) {
-        ubic.ubic1(urlInfo,
+    app.get('/api/ubic/document', function(request, response) {
+        ubic.document(urlInfo,
             function(result){
                 response.send(result);
             }
