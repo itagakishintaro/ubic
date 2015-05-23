@@ -1,11 +1,12 @@
 {
-    "name": "node-sns",
+    "name": "ubic",
     "version": "0.0.1",
     "private": true,
     "dependencies":{
         "express": "*",
         "twitter": "*",
         "facebook-node-sdk": "*",
-        "request": "*"
+        "request": "*",
+        "fql": "*"
     }
 }

@@ -42,3 +42,34 @@ $('#qiita-btn').on('click', function(){
 		});
 	}
 });
+
+$('#fb-btn').on('click', function(){
+	for (var i = 1; i <= USER_NUM; i++) {
+		var id = $('#' + i).data('fb-id');
+		var token = $('#' + i).data('fb-token');
+		fb('https://graph.facebook.com/v2.0/' + id + '/events?fields=description&access_token=' + token, i);
+	}
+});
+
+function fb(url, i){
+	$.ajax({
+		type: 'GET',
+		url: url,
+		dataType: 'json',
+		async: false,
+		success: function(json){
+			console.log(json);
+			var text = json.data.reduce(function(pre, current){
+				if(current.description) {
+					return pre + current.description;
+				} else {
+					return pre;
+				}
+			}, '');
+			$('#' + i + ' div.fb').append(text);
+			if(json.paging.next){
+				fb(json.paging.next, i);
+			}
+		}
+	});
+}
