@@ -2,13 +2,13 @@
 var USER_NUM = $('tr').length - 1;
 
 $('#mail-btn').on('click', function(){
-	for (var i = 0; i <= USER_NUM; i++) {
+	for (var i = 1; i <= USER_NUM; i++) {
 		$('#' + i + ' div.mail').load('../data/User' + i + '.txt');
 	}
 });
 
 $('#twitter-btn').on('click', function(){
-	for (var i = 0; i <= USER_NUM; i++) {
+	for (var i = 1; i <= USER_NUM; i++) {
 		var id = $('#' + i).data('twitter-id');
 		$.ajax({
 			type: 'GET',
@@ -26,7 +26,7 @@ $('#twitter-btn').on('click', function(){
 });
 
 $('#qiita-btn').on('click', function(){
-	for (var i = 0; i <= USER_NUM; i++) {
+	for (var i = 1; i <= USER_NUM; i++) {
 		var id = $('#' + i).data('qiita-id');
 		$.ajax({
 			type: 'GET',
