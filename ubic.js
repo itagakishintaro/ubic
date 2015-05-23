@@ -1,8 +1,5 @@
 var querystring = require('querystring');
-
 var http = require('http');
-
-var postData = '{"documentId":2, "categoryId":402,"text":"sample"}';
 
 var options = {
   hostname: '180.42.27.182',
@@ -29,7 +26,11 @@ function document(urlInfo, callback) {
   });
 
   // write data to request body
-  req.write(postData);
+  var id = 0;
+  if( urlInfo.query.id ) {
+    id = urlInfo.query.id
+  }
+  req.write(postData[Number(id)]);
   req.end();
 }
 
