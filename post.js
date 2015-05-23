@@ -5,15 +5,11 @@ var querystring = require('querystring');
 //   'text' : 'text sample'
 // });
 
-// var postData = QueryString.stringify({ foo: 'bar', baz: ['qux', 'quux'], corge: '' })
-//
-// var postData = queryString.stringify({
-//   'msg' : 'Hello World!'
-// });
+
 
 var http = require('http');
 
-var postData = '{"documentId":1, "categoryId":402,"text":"sample"}';
+var postData = '{"documentId":1,"categoryId":402,"text":"テキストサンプル"}';
 
 var options = {
   hostname: '180.42.27.182',
@@ -21,9 +17,7 @@ var options = {
   path: '/document_analyzer/api/document',
   method: 'POST',
   headers: {
-    // 'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Type' : 'application/json; charset=utf-8',
-    'Content-Length': postData.length
+    'Content-Type' : 'application/json; charset=utf8'
   }
 };
 
@@ -40,6 +34,5 @@ req.on('error', function(e) {
   console.log('problem with request: ' + e.message);
 });
 
-// write data to request body
 req.write(postData);
 req.end();
