@@ -1,0 +1,10 @@
+{
+    "name": "node-sns",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies":{
+        "express": "*",
+        "twitter": "*",
+        "facebook-node-sdk": "*"
+    }
+}
