@@ -45,12 +45,12 @@ configRoutes = function(app, server) {
             body += data;
         });
         request.on('end', function() {
-            // console.log("body" + body);
-            // var postBody=  qs.parse(body);
+            console.log("body ==== " + body);
+            var postBody=  qs.parse(body);
             // console.log("Object"+Object.prototype.toString.call(data).slice(8, -1));
             // console.log("body " body.nodeName);
 
-            ubic.document(urlInfo, body.toString('utf-8'),
+            ubic.document(urlInfo, postBody,
                 function(result){
                    response.send(result);
                 }
@@ -97,8 +97,16 @@ configRoutes = function(app, server) {
         });
         request.on('end', function() {
             // console.log("body" + body);
-            // var postBody=  qs.parse(body);
-            ubic.document(urlInfo, body,
+
+
+            var postBody=  qs.parse(body);
+            // var postBody = body.toString();
+            console.log('~~~~~~~~~~~~~~~~~~');
+            console.log(body);
+            // postBody = '{ "documentId": ' + Number(obj.documentId) + ', "categoryId": ' + Number(obj.categoryId) + ', "text": "' + obj.text + '"}'
+            console.log("##############");
+            console.log(postBody);
+            ubic.document(urlInfo, postBody,
                 function(result){
                    response.send(result);
                 }

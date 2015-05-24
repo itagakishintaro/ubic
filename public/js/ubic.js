@@ -2,14 +2,30 @@
 var USER_NUM = $('tr').length - 1;
 
 $('#ubic-document-btn').on('click', function(){
-	var userData = [];
 	for (var i = 1; i <= USER_NUM; i++) {
-		userData[i] = '';
-		userData[i] += $('#' + i + ' .mail').text();
-		userData[i] += $('#' + i + ' .twitter').text();
-		userData[i] += $('#' + i + ' .qiita').text();
-		userData[i] += $('#' + i + ' .rec-text').text();
-		console.log(userData[i]);
+		var text = '';
+		text += $('#' + i + ' .mail').text();
+		text += $('#' + i + ' .twitter').text();
+		text += $('#' + i + ' .qiita').text();
+		text += $('#' + i + ' .rec-text').text();
+		console.log(text);
+		var data = {
+			"documentId": i,
+			"categoryId": 401,
+			"text": text
+		};
+		console.log(data);
+		$.ajax({
+			type: 'POST',
+			url: '/api/ubic/document',
+			data: data,
+			dataType: 'json',
+			contentType: 'text/plain',
+			async: false,
+			success: function(json){
+				console.log(json);
+			}
+		});
 	}
 });
 
