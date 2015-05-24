@@ -39,32 +39,10 @@ configRoutes = function(app, server) {
         );
     });
 
-// <<<<<<< HEAD
-
-    // app.post('/api/ubic/document', function(request, response) {
-    //     console.log("recive /api/ubic/document");
-    //     var body='';
-    //     request.on('data', function (data) {
-    //         body += data;
-    //     });
-    //     request.on('end', function() {
-    //         console.log("body ==== " + body);
-    //         var postBody=  qs.parse(body);
-    //         // console.log("Object"+Object.prototype.toString.call(data).slice(8, -1));
-    //         // console.log("body " body.nodeName);
-    //
-    //         ubic.document(urlInfo, postBody,
-    //             function(result){
-    //                response.send(result);
-    //             }
-    //         );
-    //     });
-    // });
     // create application/json parser
     var jsonParser = bodyParser.json()
     // create application/x-www-form-urlencoded parser
     var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
     app.post('/api/ubic/document', urlencodedParser, function(request, response) {
         console.log("recive /api/ubic/document");
         console.log('~~~~~~~~~~~~~~~~~~');
@@ -72,7 +50,6 @@ configRoutes = function(app, server) {
         var postBody = '{"documentId": ' + request.body.documentId + ', "categoryId": ' + request.body.categoryId + ', "text": "' + String(request.body).replace(/\r?\n/g, '') + '"}';
         console.log("##############");
         console.log(postBody);
-
         ubic.document(urlInfo, postBody,
             function(result){
                response.send(result);
@@ -80,16 +57,13 @@ configRoutes = function(app, server) {
         );
     });
 
-    app.post('/relevance_evaluator/api/teacher', function(request, response) {
-        console.log("recive /relevance_evaluator/api/teacher");
-        var postBody = '{"teacherId": ' + request.body.teacherId +
-                      ', "documents": ' + request.body.documents +
-                      ', "text": "' + String(request.body).replace(/\r?\n/g, '') + '"}';
-
-                      var teachPostBody = '{"teacherId":'+request.body.teacherId+
-                                          ',"documents":{"relevant":'+request.body.relevant+
-                                          ',"notRelevant":'+request.body.notRelevant+
-                                          ' },"categoryId":'+request.body.categoryId+'}';
+    app.post('/api/ubic/teacher', urlencodedParser, function(request, response) {
+        console.log("recive /api/ubic/teacher");
+        var postBody = '{"teacherId":'+request.body.teacherId+
+        ',"documents":{"relevant":'+request.body.relevant+
+                                          // ',"notRelevant":'+request.body.notRelevant+
+                                          // ' },"categoryId":'+request.body.categoryId+'}';
+        "}"
 
         ubic.teacher(urlInfo, postBody,
             function(result){
@@ -129,32 +103,7 @@ configRoutes = function(app, server) {
             );
         });
     });
-// create application/json parser
-var jsonParser = bodyParser.json()
 
-// create application/x-www-form-urlencoded parser
-// var urlencodedParser = bodyParser.urlencoded({ extended: false })
-//     app.post('/api/ubic/document', urlencodedParser, function(request, response) {
-//         console.log("recive /api/ubic/document");
-//         console.log('~~~~~~~~~~~~~~~~~~');
-//         console.log(request.body.documentId);
-//         var postBody = '{"documentId": ' + request.body.documentId + ', "categoryId": ' + request.body.categoryId + ', "text": "' + String(request.body).replace(/\r?\n/g, '') + '"}';
-// >>>>>>> fb76b3f0bc47b9e21764696465454a9334ed575b
-//             console.log("##############");
-//             console.log(postBody);
-//
-//             ubic.document(urlInfo, postBody,
-//                 function(result){
-//                    response.send(result);
-//                 }
-//             );
-// <<<<<<< HEAD
-//         });
-// =======
-//         // });
-//
-// >>>>>>> fb76b3f0bc47b9e21764696465454a9334ed575b
-    // });
     app.get('/api/facebook/search', function(request, response) {
     	facebook.search(urlInfo,
             function(result){
