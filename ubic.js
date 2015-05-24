@@ -42,8 +42,8 @@ var options = {
 
 function document(urlInfo, postBody, callback) {
   var req = http.request(options, function(res) {
-    console.log('postBody: ' + postBody);
-    console.log('postBody: ' + postBody);
+    // console.log('-------------');
+    // console.log(postBody);
     options.path = documentPath;
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -61,7 +61,8 @@ function document(urlInfo, postBody, callback) {
   // var data = converter.convert(postBody).toString();
   // write data to request body
   // postBody = documentPostBody;
-  // console.log(postBody);
+  // console.log('===============');
+  // console.log( postBody );
   // console.log(documentPostBody);
   req.write(postBody);
 //   req.write('fileTwo', {

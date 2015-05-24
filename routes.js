@@ -57,8 +57,14 @@ configRoutes = function(app, server) {
         });
         request.on('end', function() {
             // console.log("body" + body);
-            // var postBody=  qs.parse(body);
-            ubic.document(urlInfo, body,
+            var postBody=  qs.parse(body);
+            // var postBody = body.toString();
+            console.log('~~~~~~~~~~~~~~~~~~');
+            console.log(Number(obj.documentId));
+            // postBody = '{ "documentId": ' + Number(obj.documentId) + ', "categoryId": ' + Number(obj.categoryId) + ', "text": "' + obj.text + '"}'
+            console.log("##############");
+            console.log(postBody);
+            ubic.document(urlInfo, postBody,
                 function(result){
                    response.send(result);
                 }

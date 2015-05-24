@@ -14,8 +14,17 @@ $('#ubic-document-btn').on('click', function(){
 			"categoryId": 401,
 			"text": text
 		};
-		$.post('/api/ubic/document', data, function(result){
-			console.log(result);
+		console.log(data);
+		$.ajax({
+			type: 'POST',
+			url: '/api/ubic/document',
+			data: data,
+			dataType: 'json',
+			contentType: 'text/plain',
+			async: false,
+			success: function(json){
+				console.log(json);
+			}
 		});
 	}
 });
