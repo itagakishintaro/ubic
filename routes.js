@@ -71,13 +71,13 @@ configRoutes = function(app, server) {
         ubic.teacher(urlInfo, postBody,
             function(result){
               console.log(result);
-              //  response.send(result);
+               response.send(result);
             }
         );
     });
     app.post('/api/ubic/leaningResult', function(request, response) {
         console.log("/api/ubic/leaningResult");
-        var leaningResultPostBody = '{"teacherIds":1}';
+        var leaningResultPostBody = '{"teacherId":1,"limit":10}';
 
         ubic.leaningResult(urlInfo, leaningResultPostBody,
             function(result){
