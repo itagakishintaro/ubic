@@ -37,9 +37,7 @@ $('#ubic-teacher-btn').on('click', function(){
 	});
 	var data = {
 		"teacherId": TEACHER_ID,
-		"documents": {
-			"relevant": relevant
-		},
+		"relevant": relevant,
 		"categoryId": CATEGORY_ID
 	};
 

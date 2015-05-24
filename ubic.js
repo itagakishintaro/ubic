@@ -55,15 +55,15 @@ function document(urlInfo, postBody, callback) {
     console.log('ERROR' + e.message);
   });
 
-  req.write(documentPostBody);
+  req.write(postBody);
   req.end();
 }
 
 function teacher(urlInfo, postBody, callback) {
   var req = http.request(options, function(res) {
-    options.path = teachPostBody;
+    options.path = teachPath;
     console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
       callback('BODY: ' + chunk);
