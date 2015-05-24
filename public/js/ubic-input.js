@@ -10,9 +10,10 @@ $('#mail-btn').on('click', function(){
 $('#twitter-btn').on('click', function(){
 	for (var i = 1; i <= USER_NUM; i++) {
 		var id = $('#' + i).data('twitter-id');
+		console.log('/api/twitter/search?q=@' + id);
 		$.ajax({
 			type: 'GET',
-			url: '/api/twitter/search?q=' + id,
+			url: '/api/twitter/search?q=@' + id,
 			dataType: 'json',
 			async: false,
 			success: function(json){
