@@ -74,7 +74,7 @@ function teacher(urlInfo, postBody, callback) {
     console.log('problem with request: ' + e.message);
   });
 
-  req.write(teachPostBody);
+  req.write(postBody);
   req.end();
 }
 
