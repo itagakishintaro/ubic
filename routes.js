@@ -75,22 +75,17 @@ configRoutes = function(app, server) {
             }
         );
     });
-    app.post('/relevance_evaluator/api/leaningResult', function(request, response) {
-        console.log("recive /relevance_evaluator/api/leaningResult");
-        var body='';
-        request.on('data', function (data) {
-            body +=data;
-        });
-        request.on('end', function() {
-            // console.log("body" + body);
-            // var postBody=  qs.parse(body);
-            ubic.document(urlInfo, body,
-                function(result){
-                   response.send(result);
-                }
-            );
-        });
+    app.post('/api/ubic/leaningResult', function(request, response) {
+        console.log("/api/ubic/leaningResult");
+        var leaningResultPostBody = '{"teacherIds":1}';
+
+        ubic.leaningResult(urlInfo, leaningResultPostBody,
+            function(result){
+               response.send(result);
+            }
+        );
     });
+
     app.post('/relevance_evaluator/api/deleteTeacher', function(request, response) {
         console.log('/relevance_evaluator/api/deleteTeacher');
         var body='';

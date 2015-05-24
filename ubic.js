@@ -40,6 +40,8 @@ var options = {
   }
 };
 
+
+
 function document(urlInfo, postBody, callback) {
   var req = http.request(options, function(res) {
     options.path = documentPath;
@@ -60,8 +62,16 @@ function document(urlInfo, postBody, callback) {
 }
 
 function teacher(urlInfo, postBody, callback) {
-  var req = http.request(options, function(res) {
-    options.path = teachPath;
+  var aOptions = {
+    hostname: '180.42.27.182',
+    port: 80,
+    path: '/relevance_evaluator/api/teacher',
+    method: 'POST',
+    headers: {
+      'Content-Type' : 'application/json'
+    }
+  };
+  var req = http.request(aOptions, function(res) {
     console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
@@ -79,12 +89,22 @@ function teacher(urlInfo, postBody, callback) {
 }
 
 function leaningResult(urlInfo, postBody, callback) {
-  var req = http.request(options, function(res) {
-    options.path = leaningResultPostBody;
+  var aOptions = {
+    hostname: '180.42.27.182',
+    port: 80,
+    path: '/relevance_evaluator/api/leaningResult',
+    method: 'POST',
+    headers: {
+      'Content-Type' : 'application/json'
+    }
+  };
+  var req = http.request(aOptions, function(res) {
+    // options.path = leaningResultPostBody;
     console.log('STATUS: ' + res.statusCode);
-    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
+        // console.log('callback '+ chunk);
       callback('BODY: ' + chunk);
     });
   });
@@ -93,7 +113,7 @@ function leaningResult(urlInfo, postBody, callback) {
     console.log('ERROR' + e.message);
   });
 
-  req.write(documentPostBody);
+  req.write(postBody);
   req.end();
 }
 
