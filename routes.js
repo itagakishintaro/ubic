@@ -37,27 +37,25 @@ configRoutes = function(app, server) {
         );
     });
 
-// create application/json parser
-var jsonParser = bodyParser.json()
-
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+    // create application/json parser
+    var jsonParser = bodyParser.json()
+    // create application/x-www-form-urlencoded parser
+    var urlencodedParser = bodyParser.urlencoded({ extended: false })
     app.post('/api/ubic/document', urlencodedParser, function(request, response) {
         console.log("recive /api/ubic/document");
         console.log('~~~~~~~~~~~~~~~~~~');
         console.log(request.body.documentId);
         var postBody = '{"documentId": ' + request.body.documentId + ', "categoryId": ' + request.body.categoryId + ', "text": "' + String(request.body).replace(/\r?\n/g, '') + '"}';
-            console.log("##############");
-            console.log(postBody);
-            
-            ubic.document(urlInfo, postBody,
-                function(result){
-                   response.send(result);
-                }
-            );
-        // });
-
+        console.log("##############");
+        console.log(postBody);
+        
+        ubic.document(urlInfo, postBody,
+            function(result){
+               response.send(result);
+            }
+        );
     });
+    
     app.get('/api/facebook/search', function(request, response) {
     	facebook.search(urlInfo,
             function(result){
