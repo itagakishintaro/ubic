@@ -43,9 +43,6 @@ var options = {
 function document(urlInfo, postBody, callback) {
   var req = http.request(options, function(res) {
     console.log('postBody: ' + postBody);
-    // if (postBody == "dummy") {
-      postBody = documentPostBody;
-    // }
     console.log('postBody: ' + postBody);
     options.path = documentPath;
     console.log('STATUS: ' + res.statusCode);
@@ -63,8 +60,10 @@ function document(urlInfo, postBody, callback) {
   // var converter = new iconv.Iconv('windows-1250', 'utf8');
   // var data = converter.convert(postBody).toString();
   // write data to request body
-  console.log(postBody);
-  req.write(documentPostBody);
+  // postBody = documentPostBody;
+  // console.log(postBody);
+  // console.log(documentPostBody);
+  req.write(postBody);
 //   req.write('fileTwo', {
 //     'encoding': 'binary'
 // }, documentPostBody);
