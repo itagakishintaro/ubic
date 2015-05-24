@@ -33,10 +33,19 @@ configRoutes = function(app, server) {
             }
         );
     });
-    app.get('/api/ubic/document', function(request, response) {
-        ubic.document(urlInfo,
+    app.post('/api/ubic/document', function(request, response) {
+        var body='';
+        req.on('data', function (data) {
+            body +=data;
+        });
+        req.on('end', function() {
+            var POST =  qs.parse(body);
+            console.log(POST);
+        });
+
+        ubic.document(body, urlInfo,
             function(result){
-                response.send(result);
+               response.send(result);
             }
         );
     });
