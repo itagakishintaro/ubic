@@ -8,6 +8,8 @@ var facebook = require('./facebook');
 var ubic = require('./ubic');
 var urlInfo;
 
+console.log("routes.js wake up");
+
 configRoutes = function(app, server) {
     app.get('/', function(request, response) {
         response.redirect('/index.html');
@@ -38,19 +40,41 @@ configRoutes = function(app, server) {
 
     app.post('/api/ubic/document', function(request, response) {
         console.log("recive /api/ubic/document");
+        var body='';
+        request.on('data', function (data) {
+            body += data;
+        });
+        request.on('end', function() {
+            // console.log("body" + body);
+            // var postBody=  qs.parse(body);
+            // console.log("Object"+Object.prototype.toString.call(data).slice(8, -1));
+            // console.log("body " body.nodeName);
 
-        // var data = '';
-        // request.on('data', function(chunk) {
-        //         data += chunk;
-        //       });
-        // request.on('end', function() {
-        //         //終了処理
-        //         console.log('終了処理');
-        //
-        //        //queryオブジェクトにフォーム送信データを格納する
-        //        var query = qs.parse(data);
-        // });
-
+            ubic.document(urlInfo, body.toString('utf-8'),
+                function(result){
+                   response.send(result);
+                }
+            );
+        });
+    });
+    app.post('/relevance_evaluator/api/teacher', function(request, response) {
+        console.log("recive /relevance_evaluator/api/teacher");
+        var body='';
+        request.on('data', function (data) {
+            body +=data;
+        });
+        request.on('end', function() {
+            // console.log("body" + body);
+            var postBody=  qs.parse(body);
+            ubic.document(urlInfo, body,
+                function(result){
+                   response.send(result);
+                }
+            );
+        });
+    });
+    app.post('/relevance_evaluator/api/leaningResult', function(request, response) {
+        console.log("recive /relevance_evaluator/api/leaningResult");
         var body='';
         request.on('data', function (data) {
             body +=data;
@@ -64,7 +88,22 @@ configRoutes = function(app, server) {
                 }
             );
         });
-
+    });
+    app.post('/relevance_evaluator/api/deleteTeacher', function(request, response) {
+        console.log('/relevance_evaluator/api/deleteTeacher');
+        var body='';
+        request.on('data', function (data) {
+            body +=data;
+        });
+        request.on('end', function() {
+            // console.log("body" + body);
+            // var postBody=  qs.parse(body);
+            ubic.document(urlInfo, body,
+                function(result){
+                   response.send(result);
+                }
+            );
+        });
     });
     app.get('/api/facebook/search', function(request, response) {
     	facebook.search(urlInfo,

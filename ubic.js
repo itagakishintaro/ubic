@@ -42,35 +42,24 @@ var options = {
 
 function document(urlInfo, postBody, callback) {
   var req = http.request(options, function(res) {
-    console.log('postBody: ' + postBody);
-    console.log('postBody: ' + postBody);
     options.path = documentPath;
     console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
-      console.log('chunk: ' + chunk);
       callback('BODY: ' + chunk);
     });
   });
 
   req.on('error', function(e) {
-    console.log('problem with request: ' + e.message);
+    console.log('ERROR' + e.message);
   });
-  // var converter = new iconv.Iconv('windows-1250', 'utf8');
-  // var data = converter.convert(postBody).toString();
-  // write data to request body
-  // postBody = documentPostBody;
-  // console.log(postBody);
-  // console.log(documentPostBody);
-  req.write(postBody);
-//   req.write('fileTwo', {
-//     'encoding': 'binary'
-// }, documentPostBody);
+
+  req.write(documentPostBody);
   req.end();
 }
 
-function teacher(urlInfo, callback) {
+function teacher(urlInfo, postBody, callback) {
   var req = http.request(options, function(res) {
     options.path = teachPostBody;
     console.log('STATUS: ' + res.statusCode);
@@ -85,16 +74,15 @@ function teacher(urlInfo, callback) {
     console.log('problem with request: ' + e.message);
   });
 
-  // write data to request body
   req.write(teachPostBody);
   req.end();
 }
 
-function leaningResult(urlInfo, callback) {
+function leaningResult(urlInfo, postBody, callback) {
   var req = http.request(options, function(res) {
     options.path = leaningResultPostBody;
     console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
       callback('BODY: ' + chunk);
@@ -102,19 +90,18 @@ function leaningResult(urlInfo, callback) {
   });
 
   req.on('error', function(e) {
-    console.log('problem with request: ' + e.message);
+    console.log('ERROR' + e.message);
   });
 
-  // write data to request body
-  req.write(teachPostBody);
+  req.write(documentPostBody);
   req.end();
 }
 
-function deleteTeacher(urlInfo, callback) {
+function deleteTeacher(urlInfo, postBody, callback) {
   var req = http.request(options, function(res) {
     options.path = deleteTeacherPath;
     console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
       callback('BODY: ' + chunk);
@@ -122,16 +109,10 @@ function deleteTeacher(urlInfo, callback) {
   });
 
   req.on('error', function(e) {
-    console.log('problem with request: ' + e.message);
+    console.log('ERROR' + e.message);
   });
 
-  // write data to request body
-  req.write(teachPostBody);
-  var id = 0;
-  if( urlInfo.query.id ) {
-    id = urlInfo.query.id
-  }
-  req.write(postData[Number(id)]);
+  req.write(documentPostBody);
   req.end();
 }
 
