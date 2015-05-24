@@ -59,15 +59,19 @@ configRoutes = function(app, server) {
 
     app.post('/api/ubic/teacher', urlencodedParser, function(request, response) {
         console.log("recive /api/ubic/teacher");
+        console.log(request.body);
         var postBody = '{"teacherId":'+request.body.teacherId+
-        ',"documents":{"relevant":'+request.body.relevant+
+        // ',"documents":{"relevant":'+request.body.relevant+
+        ',"documents":{"relevant":'+'[1,3,4,5]'+
                                           // ',"notRelevant":'+request.body.notRelevant+
                                           // ' },"categoryId":'+request.body.categoryId+'}';
-        "}"
+        "}}";
+        console.log(postBody);
 
         ubic.teacher(urlInfo, postBody,
             function(result){
-               response.send(result);
+              console.log(result);
+              //  response.send(result);
             }
         );
     });
