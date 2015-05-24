@@ -7,6 +7,7 @@ var facebook = require('./facebook');
 // var fql = require('./fql');
 var ubic = require('./ubic');
 var urlInfo;
+var bodyParser = require('body-parser');
 
 configRoutes = function(app, server) {
     app.get('/', function(request, response) {
@@ -36,40 +37,25 @@ configRoutes = function(app, server) {
         );
     });
 
-    app.post('/api/ubic/document', function(request, response) {
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+    app.post('/api/ubic/document', urlencodedParser, function(request, response) {
         console.log("recive /api/ubic/document");
-
-        // var data = '';
-        // request.on('data', function(chunk) {
-        //         data += chunk;
-        //       });
-        // request.on('end', function() {
-        //         //終了処理
-        //         console.log('終了処理');
-        //
-        //        //queryオブジェクトにフォーム送信データを格納する
-        //        var query = qs.parse(data);
-        // });
-
-        var body='';
-        request.on('data', function (data) {
-            body +=data;
-        });
-        request.on('end', function() {
-            // console.log("body" + body);
-            var postBody=  qs.parse(body);
-            // var postBody = body.toString();
-            console.log('~~~~~~~~~~~~~~~~~~');
-            console.log(Number(obj.documentId));
-            // postBody = '{ "documentId": ' + Number(obj.documentId) + ', "categoryId": ' + Number(obj.categoryId) + ', "text": "' + obj.text + '"}'
+        console.log('~~~~~~~~~~~~~~~~~~');
+        console.log(request.body.documentId);
+        var postBody = '{"documentId": ' + request.body.documentId + ', "categoryId": ' + request.body.categoryId + ', "text": "' + String(request.body).replace(/\r?\n/g, '') + '"}';
             console.log("##############");
             console.log(postBody);
+            
             ubic.document(urlInfo, postBody,
                 function(result){
                    response.send(result);
                 }
             );
-        });
+        // });
 
     });
     app.get('/api/facebook/search', function(request, response) {

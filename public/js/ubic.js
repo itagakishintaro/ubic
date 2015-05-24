@@ -20,7 +20,6 @@ $('#ubic-document-btn').on('click', function(){
 			url: '/api/ubic/document',
 			data: data,
 			dataType: 'json',
-			contentType: 'text/plain',
 			async: false,
 			success: function(json){
 				console.log(json);
