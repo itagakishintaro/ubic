@@ -26,6 +26,19 @@ function search(urlInfo, callback){
 	});
 }
 
+function mentions(urlInfo, callback){
+	var info = {};
+	info.consumer_key = urlInfo.query.consumer_key;
+	info.consumer_secret = urlInfo.query.consumer_secret;
+	info.access_token_key = urlInfo.query.access_token_key;
+	info.access_token_secret = urlInfo.query.access_token_secret;
+	client = new Twitter(info);
+	client.get('https://api.twitter.com/1.1/statuses/mentions_timeline.json', function(error, mentions, response){
+   		callback(mentions);
+	});
+}
+
 module.exports = {
-    search: search
+    search: search,
+    mentions: mentions
 }
