@@ -1,3 +1,4 @@
+var querystring = require('querystring');
 var http = require('http');
 // var ubic_data = require('./data.js');
 
@@ -7,9 +8,10 @@ var teacherId = 1;
 var relevant = [1,2,3,4];
 var notRelevant = [1,2,3,4];
 
-// var documentPostBody = '{"documentId":'+ubic_data.documentId+
-//                        ', "categoryId":'+ubic_data.categoryId+
+// var documentPostBody = '{"documentId":'+'1'+
+//                        ', "categoryId":'+'401'+
 //                        ',"text":"sample"}';
+var documentPostBody = '{"documentId":1,"categoryId":402,"text":"テキストサンプル"}';
 // var teachPostBody = '{"teacherId":'+teacherId+
 //                     ',"documents":{"relevant":'+relevant+
 //                     ',"notRelevant":'+notRelevant+
@@ -34,17 +36,23 @@ var options = {
   path: '/document_analyzer/api/document',
   method: 'POST',
   headers: {
-    'Content-Type' : 'application/json; charset=utf-8'
+    'Content-Type' : 'application/json'
   }
 };
 
 function document(urlInfo, postBody, callback) {
   var req = http.request(options, function(res) {
+    console.log('postBody: ' + postBody);
+    // if (postBody == "dummy") {
+      postBody = documentPostBody;
+    // }
+    console.log('postBody: ' + postBody);
     options.path = documentPath;
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
+      console.log('chunk: ' + chunk);
       callback('BODY: ' + chunk);
     });
   });
@@ -52,9 +60,14 @@ function document(urlInfo, postBody, callback) {
   req.on('error', function(e) {
     console.log('problem with request: ' + e.message);
   });
-
+  // var converter = new iconv.Iconv('windows-1250', 'utf8');
+  // var data = converter.convert(postBody).toString();
   // write data to request body
-  req.write(postBody);
+  console.log(postBody);
+  req.write(documentPostBody);
+//   req.write('fileTwo', {
+//     'encoding': 'binary'
+// }, documentPostBody);
   req.end();
 }
 
@@ -115,6 +128,11 @@ function deleteTeacher(urlInfo, callback) {
 
   // write data to request body
   req.write(teachPostBody);
+  var id = 0;
+  if( urlInfo.query.id ) {
+    id = urlInfo.query.id
+  }
+  req.write(postData[Number(id)]);
   req.end();
 }
 

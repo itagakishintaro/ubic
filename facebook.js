@@ -12,7 +12,7 @@ var facebook = new Facebook({
 // access_token=373391102861923|X8m1_jUCB_qx7Oyov3vKSUDbpc8
 
 function search(urlInfo, callback) {
-  var id = 'access_token=X8m1_jUCB_qx7Oyov3vKSUDbpc8';
+  var id = '/me/events';
   if( urlInfo.query.id ) {
     id = urlInfo.query.id
   }
@@ -26,6 +26,7 @@ function search(urlInfo, callback) {
   if( urlInfo.query.type ) {
     parameters.type = urlInfo.query.type
   }
+  parameters.access_token = 'CAACEdEose0cBAPb1d13NpknfCxasYkcvc1dA0g0ELezH4xLx3sitfXlvFzx7qNXlVqGq3EGBpQhl3i63sQJDudrDJTItZCx0QrEZBJLp9ZCVp0BAvoXlCtpkOm6qZC6a0miXieLlf6BZBOUQ21wQhLMJxyeZCwmosBVq71AnGldApthQ6EHIlsnIYcW3huIdWBcq8QYGEcmFZAWCriDTNUYnI6qxC2UJv8ZD';
 
   facebook.api(id, parameters, function(err, data) {
     if(err){

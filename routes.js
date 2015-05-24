@@ -1,8 +1,10 @@
 'use strict';
 var configRoutes;
 var url = require('url');
+var qs = require('querystring');
 var twitter = require('./twitter');
 var facebook = require('./facebook');
+// var fql = require('./fql');
 var ubic = require('./ubic');
 var urlInfo;
 
@@ -34,18 +36,39 @@ configRoutes = function(app, server) {
         );
     });
     app.post('/api/ubic/document', function(request, response) {
+        console.log("recive /api/ubic/document");
+
+        // var data = '';
+        // request.on('data', function(chunk) {
+        //         data += chunk;
+        //       });
+        // request.on('end', function() {
+        //         //終了処理
+        //         console.log('終了処理');
+        //
+        //        //queryオブジェクトにフォーム送信データを格納する
+        //        var query = qs.parse(data);
+        // });
+
         var body='';
-        req.on('data', function (data) {
+        request.on('data', function (data) {
             body +=data;
         });
-        req.on('end', function() {
-            var POST =  qs.parse(body);
-            console.log(POST);
+        request.on('end', function() {
+            // console.log("body" + body);
+            // var postBody=  qs.parse(body);
+            ubic.document(urlInfo, body,
+                function(result){
+                   response.send(result);
+                }
+            );
         });
 
-        ubic.document(body, urlInfo,
+    });
+    app.get('/api/fql/search', function(request, response) {
+        fql.search(urlInfo,
             function(result){
-               response.send(result);
+                response.send(result);
             }
         );
     });

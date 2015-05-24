@@ -1,0 +1,22 @@
+.width-100 {
+	width: 100px;
+}
+.width-300 {
+	width: 300px;
+}
+
+td div {
+	height: 200px;
+	width: 300px;
+	overflow: scroll;
+}
+
+.select-type {
+	margin: 1rem;
+	padding: 1rem 2rem;
+	border: 1px solid gray;
+}
+.actions {
+	margin: 1rem;
+	padding: 1rem;
+}

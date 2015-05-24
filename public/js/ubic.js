@@ -1,13 +1,20 @@
-'use strict'
+'use strict';
+var USER_NUM = $('tr').length - 1;
 
-var URL = 'http://180.42.27.182/';
-var EP1 = 'document_analyzer/api/document';
-var data = { documentId: 'test1', categoryId: 400, text: 'test' };
+$('#ubic-document-btn').on('click', function(){
+	var userData = [];
+	for (var i = 1; i <= USER_NUM; i++) {
+		userData[i] = '';
+		userData[i] += $('#' + i + ' .mail').text();
+		userData[i] += $('#' + i + ' .twitter').text();
+		userData[i] += $('#' + i + ' .qiita').text();
+		userData[i] += $('#' + i + ' .rec-text').text();
+		console.log(userData[i]);
+	}
+});
 
-$.ajax({
-	type: 'POST',
-	url: URL + EP1,
-	data: data
-}).done(function( res ) {
-	console.log(res);
+$('#ubic-teacher-btn').on('click', function(){
+	$('[class="teacher"]:checked').each(function(i, v){
+		console.log($(v).val() );
+	});
 });
