@@ -28,13 +28,14 @@ configRoutes = function(app, server) {
             }
         );
     });
-    app.get('/api/facebook/search', function(request, response) {
-    	facebook.search(urlInfo,
-            function(result){
+    app.get('/api/twitter/mentions', function(request, response) {
+        twitter.mentions(urlInfo,
+            function(result) {
                 response.send(result);
             }
         );
     });
+
     app.post('/api/ubic/document', function(request, response) {
         console.log("recive /api/ubic/document");
 
@@ -65,8 +66,8 @@ configRoutes = function(app, server) {
         });
 
     });
-    app.get('/api/fql/search', function(request, response) {
-        fql.search(urlInfo,
+    app.get('/api/facebook/search', function(request, response) {
+    	facebook.search(urlInfo,
             function(result){
                 response.send(result);
             }
